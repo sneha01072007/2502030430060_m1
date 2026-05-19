@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChicBoutique | Girls Fashion</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #fff5f7;
+            color: #333;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- Navigation --- */
+        header {
+            background: #ffffff;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4a75;
+            letter-spacing: 1px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        nav ul li a:hover, nav ul li a.active {
+            color: #ff4a75;
+        }
+
+        /* --- Page Sections --- */
+        .page {
+            display: none;
+            padding: 40px 5%;
+            animation: fadeIn 0.5s ease;
+        }
+        .page.active-page {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Home Page (Static/Dynamic Products) --- */
+        .hero {
+            background: linear-gradient(rgba(255,245,247,0.4), rgba(255,245,247,0.4)), url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1200') no-repeat center/cover;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        .hero h1 { font-size: 42px; color: #222; margin-bottom: 10px; }
+        .hero p { font-size: 18px; color: #555; margin-bottom: 20px; }
+        .btn {
+            background: #ff4a75;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #e0365f; }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #222;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        .product-info { padding: 15px; }
+        .product-title { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+        .product-price { color: #ff4a75; font-weight: bold; margin-bottom: 10px; }
+
+        /* --- About Us Page --- */
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .about-container p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* --- Forms (Login & Registration) --- */
+        .form-container {
+            max-width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus { border-color: #ff4a75; }
+        .error-msg {
+            color: #d93025;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* --- Custom Pop-up Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.show .modal { transform: scale(1); }
+        .modal h3 { color: #ff4a75; margin-bottom: 15px; }
+        .modal p { color: #555; margin-bottom: 20px; }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #222;
+            color: #aaa;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- --- Header & Navigation --- -->
+    <header>
+        <div class="logo">ChicBoutique</div>
+        <nav>
+            <ul>
+                <li><a onclick="switchPage('home')" id="nav-home" class="active">Home</a></li>
+                <li><a onclick="switchPage('about')" id="nav-about">About Us</a></li>
+                <li><a onclick="switchPage('login')" id="nav-login">Login</a></li>
+                <li><a onclick="switchPage('register')" id="nav-register">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- --- Home Page --- -->
+    <div id="page-home" class="page active-page">
+        <div class="hero">
+            <h1>Fresh Floral Styles</h1>
+            <p>Upgrade your wardrobe with up to 40% off new arrivals.</p>
+            <button class="btn" onclick="switchPage('register')">Join the Club</button>
+        </div>
+        <h2 class="section-title">Trending Now</h2>
+        <div class="product-grid" id="product-list">
+            <!-- Dynamic Products will be rendered here via JavaScript -->
+        </div>
+    </div>
+
+    <!-- --- About Us Page --- -->
+    <div id="page-about" class="page">
+        <div class="about-container">
+            <h2 class="section-title">Our Story</h2>
+            <p>Welcome to <strong>ChicBoutique</strong>, your number one destination for curated, high-quality girls' fashion. Founded with a vision to celebrate self-expression, we bring you the latest trends, timeless basics, and statement pieces designed to boost confidence.</p>
+            <p>We pride ourselves on sustainable sourcing, premium fabrics, and ensuring that premium fashion remains inclusive and accessible for everyone.</p>
+            <button class="btn" style="margin-top: 20px;" onclick="switchPage('home')">Shop Our Collection</button>
+        </div>
+    </div>
+
+    <!-- --- Login Page --- -->
+    <div id="page-login" class="page">
+        <div class="form-container">
+            <h2 class="section-title">Welcome Back</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter email">
+                    <div class="error-msg" id="loginEmailErr">Please enter a valid email address.</div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password">
+                    <div class="error-msg" id="loginPassErr">Password cannot be empty.</div>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- --- Registration Page --- -->
+    <div id="page-register" class="page">
+        <div class="form-container">
+            <h2 class="section-title">Create Account</h2>
+            <form id="regForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" placeholder="e.g., Jane Doe">
+                    <div class="error-msg" id="regNameErr">Name must be at least 3 characters.</div>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" placeholder="name@example.com">
+                    <div class="error-msg" id="regEmailErr">Please enter a valid email address.</div>
+                </div>
+                <div class="form-group">
+                    <label for="regPass">Password</label>
+                    <input type="password" id="regPass" placeholder="Min. 6 characters">
+                    <div class="error-msg" id="regPassErr">Password must be at least 6 characters.</div>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPass">Confirm Password</label>
+                    <input type="password" id="regConfirmPass" placeholder="Re-enter password">
+                    <div class="error-msg" id="regConfirmPassErr">Passwords do not match.</div>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- --- Custom Success Pop-up Modal --- -->
+    <div class="modal-overlay" id="popupModal">
+        <div class="modal">
+            <h3 id="modalTitle">Success!</h3>
+            <p id="modalMessage">Your action was completed successfully.</p>
+            <button class="btn" onclick="closeModal()">Great!</button>
+        </div>
+    </div>
+
+    <!-- --- Footer --- -->
+    <footer>
+        &copy; 2026 ChicBoutique. Built beautifully with HTML, CSS, and Vanilla JS.
+    </footer>
+
+    <!-- --- JavaScript (Dynamic Functionality) --- -->
+    <script>
+        // --- 1. Dynamic Product Data ---
+        const products = [
+            { id: 1, name: "Pastel Pink Summer Dress", price: "$45.00", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=400" },
+            { id: 2, name: "Classic Denim Jacket", price: "$55.00", img: "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=400" },
+            { id: 3, name: "Floral Pleated Skirt", price: "$35.00", img: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=400" },
+            { id: 4, name: "Casual White Knit Sweater", price: "$49.00", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=400" }
+        ];
+
+        // Load Products into Home Page Dynamically
+        function loadProducts() {
+            const container = document.getElementById('product-list');
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.img}" alt="${product.name}" class="product-img">
+                    <div class="product-info">
+                        <div class="product-title">${product.name}</div>
+                        <div class="product-price">${product.price}</div>
+                        <button class="btn" style="padding: 6px 15px; font-size: 13px;" onclick="triggerPopup('Added to Cart', '${product.name} has been added to your bag!')">Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- 2. Single Page Navigation System ---
+        function switchPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active-page'));
+            // Remove active style from links
+            document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
+            
+            // Show selected page & set tab active
+            document.getElementById(`page-${pageId}`).classList.add('active-page');
+            document.getElementById(`nav-${pageId}`).classList.add('active');
+            
+            // Reset forms if switching away
+            document.getElementById('loginForm').reset();
+            document.getElementById('regForm').reset();
+            document.querySelectorAll('.error-msg').forEach(err => err.style.display = 'none');
+            
+            window.scrollTo(0,0);
+        }
+
+        // --- 3. Dynamic Pop-up Logic ---
+        function triggerPopup(title, message) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMessage').innerText = message;
+            document.getElementById('popupModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('popupModal').classList.remove('show');
+        }
+
+        // --- 4. Validation: Login ---
+        function handleLogin(event) {
+            event.preventDefault();
+            let isValid = true;
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const pass = document.getElementById('loginPassword').value.trim();
+            
+            if (!email.includes('@') || email.length < 5) {
+                document.getElementById('loginEmailErr').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('loginEmailErr').style.display = 'none';
+            }
+            
+            if (pass === "") {
+                document.getElementById('loginPassErr').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('loginPassErr').style.display = 'none';
+            }
+
+            if (isValid) {
+                triggerPopup("Welcome Back!", "Login successful. Enjoy your shopping experience!");
+                switchPage('home');
+            }
+        }
+
+        // --- 5. Validation: Registration ---
+        function handleRegister(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const pass = document.getElementById('regPass').value.trim();
+            const confirmPass = document.getElementById('regConfirmPass').value.trim();
+
+            if (name.length < 3) {
+                document.getElementById('regNameErr').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('regNameErr').style.display = 'none';
+            }
+
+            if (!email.includes('@') || email.length < 5) {
+                document.getElementById('regEmailErr').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('regEmailErr').style.display = 'none';
+            }
+
+            if (pass.length < 6) {
+                document.getElementById('regPassErr').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('regPassErr').style.display = 'none';
+            }
+
+            if (confirmPass !== pass || confirmPass === "") {
+                document.getElementById('regConfirmPassErr').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('regConfirmPassErr').style.display = 'none';
+            }
+
+            if (isValid) {
+                triggerPopup("Account Created!", `Hi ${name}, your registration was successful.`);
+                switchPage('home');
+            }
+        }
+
+        // Initialize Products Array on Page Load
+        window.onload = loadProducts;
+    </script>
+</body>
+</html>
