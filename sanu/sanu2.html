@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNEVAM – Wear Your Charm ✨</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+/* ============ THEME VARIABLES (default: Barbie) ============ */
+:root {
+  --c1:#FF1F8E; --c1h:#FF0080; --c1l:#FF69B4;
+  --c2:#E040FB; --c2l:#F3D9FF;
+  --bubblegum:#FFB3D9; --cotton:#FFC8E4; --powder:#FFE4F3;
+  --lilac:#E8B4FF; --lavender:#F3D9FF;
+  --sky:#B8E4FF; --mint:#B8FFE4; --lemon:#FFF4B8;
+  --white-pearl:#FFF8FC;
+  --text-dark:#3D1A3A; --text-mid:#7A3B6E; --text-soft:#B87BA8;
+  --bg:#FFF0FA; --bg2:#FEE8F5;
+  --card-bg:rgba(255,255,255,0.75);
+  --shadow-main:0 8px 40px rgba(255,31,142,0.18);
+  --shadow-soft:0 4px 24px rgba(255,105,180,0.12);
+  --accent-trail:#FF1F8E;
+}
+/* ======= OCEAN THEME ======= */
+body.theme-ocean{
+  --c1:#0077B6; --c1h:#023E8A; --c1l:#48CAE4;
+  --c2:#0096C7; --c2l:#ADE8F4;
+  --bubblegum:#90E0EF; --cotton:#CAF0F8; --powder:#DBF4FB;
+  --lilac:#ADE8F4; --lavender:#E0F7FA;
+  --text-dark:#012A4A; --text-mid:#1E6091; --text-soft:#52B0CC;
+  --bg:#E0F7FA; --bg2:#B2EBF2;
+  --shadow-main:0 8px 40px rgba(0,119,182,0.2);
+  --accent-trail:#00B4D8;
+}
+/* ======= DARK LUXE THEME ======= */
+body.theme-dark{
+  --c1:#D4AF37; --c1h:#B8960C; --c1l:#F0D060;
+  --c2:#C9956C; --c2l:#2a1a10;
+  --bubblegum:#3a2a1a; --cotton:#2e1e12; --powder:#1e140c;
+  --lilac:#2a2040; --lavender:#1a1428;
+  --text-dark:#F7E7CE; --text-mid:#C9956C; --text-soft:#8a6a4a;
+  --bg:#1A1210; --bg2:#231815;
+  --card-bg:rgba(40,25,15,0.85);
+  --shadow-main:0 8px 40px rgba(212,175,55,0.2);
+  --accent-trail:#D4AF37;
+}
+/* ======= SAGE THEME ======= */
+body.theme-sage{
+  --c1:#4CAF82; --c1h:#2E7D5A; --c1l:#80C9A0;
+  --c2:#26A69A; --c2l:#B2DFDB;
+  --bubblegum:#A5D6A7; --cotton:#C8E6C9; --powder:#E8F5E9;
+  --lilac:#B2DFDB; --lavender:#E0F2F1;
+  --text-dark:#1B4A2A; --text-mid:#2E7D5A; --text-soft:#66BB6A;
+  --bg:#F1F8F3; --bg2:#E8F5E9;
+  --shadow-main:0 8px 40px rgba(76,175,130,0.2);
+  --accent-trail:#4CAF82;
+}
+/* ======= ROYAL PURPLE THEME ======= */
+body.theme-royal{
+  --c1:#7B2FBE; --c1h:#5B0EA6; --c1l:#A855F7;
+  --c2:#9333EA; --c2l:#EDE9FE;
+  --bubblegum:#DDD6FE; --cotton:#EDE9FE; --powder:#F5F3FF;
+  --lilac:#C4B5FD; --lavender:#EDE9FE;
+  --text-dark:#2E1065; --text-mid:#6D28D9; --text-soft:#A78BFA;
+  --bg:#FAF5FF; --bg2:#F5F3FF;
+  --shadow-main:0 8px 40px rgba(123,47,190,0.2);
+  --accent-trail:#9333EA;
+}
+/* ======= SUNSET THEME ======= */
+body.theme-sunset{
+  --c1:#F97316; --c1h:#EA580C; --c1l:#FB923C;
+  --c2:#EC4899; --c2l:#FDF2F8;
+  --bubblegum:#FED7AA; --cotton:#FFEDD5; --powder:#FFF7ED;
+  --lilac:#FBCFE8; --lavender:#FDF2F8;
+  --text-dark:#431407; --text-mid:#9A3412; --text-soft:#C2410C;
+  --bg:#FFF7ED; --bg2:#FFEDD5;
+  --shadow-main:0 8px 40px rgba(249,115,22,0.2);
+  --accent-trail:#F97316;
+}
+/* ======= MINT DREAM THEME ======= */
+body.theme-mint{
+  --c1:#06B6D4; --c1h:#0891B2; --c1l:#67E8F9;
+  --c2:#10B981; --c2l:#CCFBF1;
+  --bubblegum:#A7F3D0; --cotton:#D1FAE5; --powder:#ECFDF5;
+  --lilac:#CCFBF1; --lavender:#F0FDFA;
+  --text-dark:#064E3B; --text-mid:#065F46; --text-soft:#34D399;
+  --bg:#F0FDFA; --bg2:#ECFDF5;
+  --shadow-main:0 8px 40px rgba(6,182,212,0.2);
+  --accent-trail:#06B6D4;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-dark);font-family:'Quicksand',sans-serif;overflow-x:hidden;cursor:none;transition:background .5s,color .5s}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--powder)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--c1),var(--lilac));border-radius:10px}
+
+/* ============ CURSOR — Wand ============ */
+#cursor-wand{
+  position:fixed;top:0;left:0;
+  width:28px;height:28px;
+  pointer-events:none;z-index:999999;
+  transform:translate(-8px,-8px);
+  transition:transform .12s ease;
+  filter:drop-shadow(0 0 6px rgba(255,31,142,0.9));
+}
+#cursor-wand svg{width:28px;height:28px}
+
+/* Sparkle trail canvas */
+#trail-canvas{
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:999998;
+}
+
+/* Click heart burst */
+.heart-burst{
+  position:fixed;pointer-events:none;z-index:9999990;
+  font-size:2.5rem;
+  animation:heartBurst .9s ease-out forwards;
+}
+@keyframes heartBurst{
+  0%{opacity:1;transform:translate(-50%,-50%) scale(0.3) rotate(-15deg)}
+  30%{opacity:1;transform:translate(-50%,-80%) scale(1.4) rotate(10deg)}
+  100%{opacity:0;transform:translate(-50%,-160%) scale(0.8) rotate(-5deg)}
+}
+
+/* LOADING */
+#loading-screen{
+  position:fixed;inset:0;
+  background:linear-gradient(135deg,var(--c1l),var(--c1),var(--c2));
+  z-index:9999999;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:20px;
+  transition:opacity .8s,visibility .8s;
+}
+#loading-screen.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader-crown{font-size:3rem;animation:crownBounce 1s ease-in-out infinite}
+@keyframes crownBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.1)}}
+.loader-dots{display:flex;gap:8px}
+.loader-dot{width:10px;height:10px;border-radius:50%;background:white;opacity:.4;animation:dotPulse 1.2s ease-in-out infinite}
+.loader-dot:nth-child(2){animation-delay:.2s}
+.loader-dot:nth-child(3){animation-delay:.4s}
+@keyframes dotPulse{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
+
+/* THEME PANEL */
+#theme-panel{
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  z-index:9990;
+  background:var(--card-bg,rgba(255,255,255,0.9));
+  backdrop-filter:blur(20px);
+  border:1.5px solid rgba(var(--c1-rgb,255,31,142),0.2);
+  border-right:none;
+  border-radius:20px 0 0 20px;
+  padding:0;
+  box-shadow:-4px 0 30px rgba(0,0,0,0.1);
+  transition:all .4s cubic-bezier(.25,.46,.45,.94);
+  overflow:hidden;
+  width:52px;
+}
+#theme-panel.open{width:220px}
+#theme-tab{
+  position:absolute;left:0;top:0;bottom:0;width:52px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  cursor:none;
+  border-radius:20px 0 0 20px;
+  background:linear-gradient(180deg,var(--c1),var(--c2));
+  color:white;
+  writing-mode:vertical-rl;text-orientation:mixed;
+  font-family:'Quicksand';font-weight:700;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  gap:0;
+  padding:16px 0;
+  user-select:none;
+}
+#theme-tab span{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.2em}
+#theme-content{
+  margin-left:52px;padding:16px 14px;
+  min-width:168px;
+  opacity:0;transition:opacity .3s .1s;
+}
+#theme-panel.open #theme-content{opacity:1}
+.theme-title{font-family:'Dancing Script',cursive;font-size:1.1rem;color:var(--text-dark);margin-bottom:12px;font-weight:700}
+.theme-btn{
+  display:flex;align-items:center;gap:9px;
+  width:100%;padding:8px 10px;border:1.5px solid transparent;
+  border-radius:12px;cursor:none;
+  background:rgba(255,255,255,0.5);
+  margin-bottom:6px;
+  transition:all .25s;
+  font-family:'Quicksand';font-weight:600;font-size:0.75rem;color:var(--text-dark);
+}
+.theme-btn:hover{transform:translateX(-3px);background:rgba(255,255,255,0.9);border-color:var(--c1)}
+.theme-btn.active{background:linear-gradient(135deg,var(--c1),var(--c2));color:white;border-color:transparent}
+.theme-swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:2px solid rgba(255,255,255,0.6);box-shadow:0 2px 6px rgba(0,0,0,.15)}
+
+/* TYPOGRAPHY */
+.gradient-text{
+  background:linear-gradient(135deg,var(--c1),var(--c2),var(--c1l));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200% auto;animation:textShimmer 4s linear infinite;
+}
+@keyframes textShimmer{0%{background-position:0%}100%{background-position:200%}}
+.label{font-family:'Quicksand';font-weight:600;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--c1);display:inline-flex;align-items:center;gap:8px}
+.label::before,.label::after{content:'✦';font-size:.6rem}
+
+/* BUTTONS */
+.btn-main{
+  background:linear-gradient(135deg,var(--c1),var(--c1h),var(--c2));
+  background-size:200% auto;color:white;font-family:'Quicksand';font-weight:700;
+  letter-spacing:.1em;font-size:.78rem;text-transform:uppercase;
+  padding:14px 36px;border:none;cursor:none;border-radius:50px;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .3s;
+}
+.btn-main::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.25),transparent);border-radius:50px}
+.btn-main:hover{background-position:right center;transform:translateY(-3px) scale(1.02);box-shadow:0 8px 35px rgba(0,0,0,.25)}
+.btn-outline{
+  background:transparent;border:2px solid var(--c1);color:var(--c1);
+  font-family:'Quicksand';font-weight:700;font-size:.78rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:12px 34px;cursor:none;border-radius:50px;transition:all .3s;
+}
+.btn-outline:hover{background:var(--powder);transform:translateY(-3px);box-shadow:var(--shadow-soft)}
+
+/* NAVBAR */
+#navbar{transition:background .4s,box-shadow .4s}
+#navbar.scrolled{background:rgba(255,240,250,.92);backdrop-filter:blur(20px);box-shadow:0 4px 30px rgba(0,0,0,.08)}
+.nav-link{font-family:'Quicksand';font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mid);cursor:none;transition:color .3s;position:relative}
+.nav-link:hover{color:var(--c1)}
+.nav-link::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2));border-radius:2px;transition:width .3s}
+.nav-link:hover::after{width:100%}
+
+/* Animated SVG nav icons */
+.nav-icon-btn{background:none;border:none;cursor:none;position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .3s}
+.nav-icon-btn:hover{background:var(--powder)}
+.nav-icon-btn svg{transition:transform .3s}
+.nav-icon-btn:hover svg{transform:scale(1.18)}
+/* Cart icon bounce */
+@keyframes cartBounce{0%,100%{transform:scale(1)}40%{transform:scale(1.25) rotate(-8deg)}70%{transform:scale(0.95) rotate(4deg)}}
+.cart-bounce svg{animation:cartBounce .5s ease}
+/* Search icon spin */
+@keyframes searchSpin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+/* Menu bars morph */
+#menu-icon-lines line{transition:all .4s cubic-bezier(.25,.46,.45,.94);transform-origin:center}
+
+/* HERO */
+#hero{min-height:100vh;background:linear-gradient(160deg,var(--bg) 0%,var(--powder) 40%,var(--lavender) 70%,var(--cotton) 100%);position:relative;overflow:hidden}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;animation:blobFloat 10s ease-in-out infinite}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-30px) scale(1.08)}66%{transform:translate(-20px,20px) scale(.95)}}
+@keyframes floatDeco{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(10deg)}}
+
+/* PRODUCT CARDS */
+.product-card{background:white;border-radius:24px;border:1.5px solid rgba(255,180,217,.3);overflow:hidden;transition:all .4s cubic-bezier(.25,.46,.45,.94);position:relative;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.product-card:hover{transform:translateY(-8px) scale(1.01);border-color:var(--c1l);box-shadow:0 20px 60px rgba(0,0,0,.15),0 0 0 4px rgba(255,105,180,.08)}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--sky));opacity:0;transition:opacity .3s}
+.product-card:hover::before{opacity:1}
+.img-wrap{height:260px;overflow:hidden;background:linear-gradient(135deg,var(--powder),var(--lavender));position:relative}
+.img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.product-card:hover .img-wrap img{transform:scale(1.06)}
+.badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,var(--c1),var(--c2));color:white;font-family:'Quicksand';font-weight:700;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+.wishlist-btn{position:absolute;top:12px;left:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border:1.5px solid rgba(255,180,217,.5);display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.wishlist-btn:hover{background:var(--powder);border-color:var(--c1);transform:scale(1.1)}
+.wishlist-btn.active svg{fill:var(--c1);stroke:var(--c1)}
+.quick-view{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,0) 100%);padding:20px 16px 16px;transform:translateY(100%);transition:transform .3s ease}
+.product-card:hover .quick-view{transform:translateY(0)}
+
+/* CAT PILLS */
+.cat-pill{background:white;border:1.5px solid rgba(255,180,217,.4);color:var(--text-mid);font-family:'Quicksand';font-weight:600;font-size:.72rem;letter-spacing:.06em;padding:9px 22px;cursor:none;border-radius:50px;transition:all .3s;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.cat-pill:hover,.cat-pill.active{background:linear-gradient(135deg,var(--c1),var(--c2));color:white;border-color:transparent;box-shadow:0 4px 16px rgba(0,0,0,.2);transform:translateY(-2px)}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;white-space:nowrap}
+.marquee-track{display:inline-block;animation:marqueeScroll 28s linear infinite}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* INPUTS */
+.barbie-input{background:rgba(255,255,255,.8);border:1.5px solid rgba(255,180,217,.4);border-radius:50px;color:var(--text-dark);font-family:'Quicksand';font-size:.85rem;font-weight:500;padding:13px 22px;width:100%;outline:none;transition:border-color .3s,box-shadow .3s}
+.barbie-input:focus{border-color:var(--c1);box-shadow:0 0 0 4px rgba(255,31,142,.1)}
+.barbie-input::placeholder{color:rgba(122,59,110,.35)}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* TOAST */
+#toast{position:fixed;bottom:28px;right:28px;z-index:9999;background:white;border:1.5px solid rgba(255,180,217,.5);border-radius:16px;padding:14px 20px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.1);transform:translateY(20px);opacity:0;pointer-events:none;transition:all .3s}
+#toast.show{transform:translateY(0);opacity:1}
+
+/* CART SIDEBAR */
+#cart-sidebar{transform:translateX(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);background:var(--white-pearl,#FFF8FC);border-left:1.5px solid rgba(255,180,217,.3);box-shadow:-8px 0 40px rgba(0,0,0,.08)}
+#cart-sidebar.open{transform:translateX(0)}
+
+/* MODAL */
+#product-modal{display:none}
+#product-modal.open{display:flex}
+.modal-bg{background:rgba(255,182,200,.35);backdrop-filter:blur(16px)}
+.modal-box{background:white;border-radius:28px;border:1.5px solid rgba(255,180,217,.4);box-shadow:0 24px 80px rgba(0,0,0,.15);max-height:92vh;overflow-y:auto}
+
+/* SEARCH */
+#search-overlay{transform:translateY(-100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);background:rgba(255,240,250,.97);backdrop-filter:blur(20px);border-bottom:1.5px solid rgba(255,180,217,.3)}
+#search-overlay.open{transform:translateY(0)}
+
+/* MOBILE MENU */
+#mobile-menu{background:rgba(255,240,250,.98);backdrop-filter:blur(20px)}
+
+/* PRICE */
+.price-old{text-decoration:line-through;color:rgba(122,59,110,.35);font-size:.8rem}
+
+/* FEATURE CARD */
+.feature-card{background:white;border-radius:20px;border:1.5px solid rgba(255,180,217,.25);padding:32px 24px;text-align:center;transition:all .35s;box-shadow:0 2px 16px rgba(0,0,0,.05)}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.12);border-color:rgba(255,105,180,.4)}
+.icon-circle{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;background:linear-gradient(135deg,var(--powder),var(--lavender));font-size:1.6rem}
+
+/* TCARD */
+.tcard{background:white;border-radius:24px;border:1.5px solid rgba(255,180,217,.25);padding:32px;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:all .35s}
+.tcard:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.1)}
+
+/* AVATAR */
+.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--c1),var(--lilac));display:flex;align-items:center;justify-content:center;font-family:'Quicksand';font-weight:700;font-size:.9rem;color:white;flex-shrink:0}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:14px;color:var(--c1);font-size:.8rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,105,180,.3),transparent)}
+
+/* FOOTER */
+#footer{background:linear-gradient(160deg,var(--bg),var(--cotton));border-top:1.5px solid rgba(255,180,217,.3)}
+
+/* ===== ANIMATED SVG ICONS ===== */
+/* Cart wiggle on hover */
+@keyframes cartWiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-12deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(6deg)}}
+.nav-icon-btn:hover .cart-svg{animation:cartWiggle .5s ease}
+
+/* Search pulse */
+@keyframes searchPulse{0%,100%{opacity:1}50%{opacity:.5}}
+.nav-icon-btn:hover .search-circle{animation:searchPulse .8s ease infinite;transform-origin:center}
+
+/* Heart beat */
+@keyframes heartbeat{0%,100%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(1)}75%{transform:scale(1.15)}}
+.wishlist-btn:hover svg{animation:heartbeat .6s ease}
+
+/* Menu bars */
+@keyframes menuBar1{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(5px) rotate(45deg)}}
+@keyframes menuBar2{0%{opacity:1}100%{opacity:0}}
+@keyframes menuBar3{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-5px) rotate(-45deg)}}
+.menu-open #bar1{animation:menuBar1 .3s forwards}
+.menu-open #bar2{animation:menuBar2 .3s forwards}
+.menu-open #bar3{animation:menuBar3 .3s forwards}
+
+/* Bag fill animation */
+@keyframes bagFill{0%{fill:none}100%{fill:var(--c1)}}
+
+/* Star shimmer */
+@keyframes starShimmer{0%,100%{opacity:.5;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading-screen">
+  <div class="loader-crown">👑</div>
+  <div style="font-family:'Dancing Script',cursive;font-size:2.8rem;color:white;font-weight:700;text-shadow:0 2px 20px rgba(255,255,255,.5);">SNEVAM</div>
+  <div style="font-family:'Quicksand';font-size:.85rem;color:rgba(255,255,255,.8);letter-spacing:.2em;text-transform:uppercase;">✨ Wear Your Charm ✨</div>
+  <div class="loader-dots"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>
+</div>
+
+<!-- GOLDEN ARROW CURSOR -->
+<div id="cursor-arrow">
+  <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+    <!-- Arrow shaft -->
+    <line x1="10" y1="34" x2="30" y2="14" stroke="url(#arrowGrad)" stroke-width="3" stroke-linecap="round"/>
+    <!-- Arrowhead -->
+    <polygon points="30,14 22,16 28,22" fill="url(#arrowGrad)" stroke="#FFF7C0" stroke-width=".5"/>
+    <!-- Golden glow circles -->
+    <circle cx="10" cy="34" r="2" fill="#FFD700" opacity=".7"/>
+    <defs>
+      <linearGradient id="arrowGrad" x1="10" y1="34" x2="30" y2="14" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#B8860B"/>
+        <stop offset="50%" stop-color="#FFD700"/>
+        <stop offset="100%" stop-color="#FFF7C0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+
+<!-- ROTATING FLOWER AROUND CURSOR -->
+<div id="cursor-flower">
+  <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" width="52" height="52">
+    <!-- 8 petals -->
+    <ellipse cx="26" cy="10" rx="4.5" ry="9" fill="#FFD700" opacity=".85"/>
+    <ellipse cx="26" cy="10" rx="4.5" ry="9" fill="#FFD700" opacity=".85" transform="rotate(45 26 26)"/>
+    <ellipse cx="26" cy="10" rx="4.5" ry="9" fill="#FFE066" opacity=".8" transform="rotate(90 26 26)"/>
+    <ellipse cx="26" cy="10" rx="4.5" ry="9" fill="#FFD700" opacity=".85" transform="rotate(135 26 26)"/>
+    <ellipse cx="26" cy="10" rx="4.5" ry="9" fill="#FFE066" opacity=".8" transform="rotate(180 26 26)"/>
+    <ellipse cx="26" cy="10" rx="4.5" ry="9" fill="#FFD700" opacity=".85" transform="rotate(225 26 26)"/>
+    <ellipse cx="26" cy="10" rx="4.5" ry="9" fill="#FFE066" opacity=".8" transform="rotate(270 26 26)"/>
+    <ellipse cx="26" cy="10" rx="4.5" ry="9" fill="#FFD700" opacity=".85" transform="rotate(315 26 26)"/>
+    <!-- Center -->
+    <circle cx="26" cy="26" r="6" fill="#FFF3A0" stroke="#FFD700" stroke-width="1.5"/>
+    <circle cx="26" cy="26" r="3" fill="#FFD700"/>
+  </svg>
+</div>
+
+<!-- TRAIL CANVAS -->
+<canvas id="trail-canvas"></canvas>
+
+<!-- TOAST -->
+<div id="toast">
+  <span style="font-size:1.1rem">💖</span>
+  <span id="toast-msg" style="font-family:'Quicksand';font-weight:600;font-size:.82rem;color:var(--text-dark);"></span>
+</div>
+
+<!-- ===== THEME PANEL ===== -->
+<div id="theme-panel">
+  <div id="theme-tab" onclick="toggleThemePanel()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="margin-bottom:6px;flex-shrink:0">
+      <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+    </svg>
+    <span>THEMES</span>
+  </div>
+  <div id="theme-content">
+    <div class="theme-title">🎨 Themes</div>
+
+    <button class="theme-btn active" onclick="setTheme('barbie',this)">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#FF1F8E,#E040FB)"></div>Barbie Pink 💗
+    </button>
+    <button class="theme-btn" onclick="setTheme('ocean',this)">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#0077B6,#48CAE4)"></div>Ocean Blue 🌊
+    </button>
+    <button class="theme-btn" onclick="setTheme('dark',this)">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#1A1210,#D4AF37)"></div>Dark Luxe 🖤
+    </button>
+    <button class="theme-btn" onclick="setTheme('sage',this)">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#4CAF82,#26A69A)"></div>Sage Green 🌿
+    </button>
+    <button class="theme-btn" onclick="setTheme('royal',this)">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#7B2FBE,#9333EA)"></div>Royal Purple 👑
+    </button>
+    <button class="theme-btn" onclick="setTheme('sunset',this)">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#F97316,#EC4899)"></div>Sunset ☀️
+    </button>
+    <button class="theme-btn" onclick="setTheme('mint',this)">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#06B6D4,#10B981)"></div>Mint Dream 🧊
+    </button>
+  </div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div id="search-overlay" class="fixed top-0 left-0 right-0 z-50 px-8 py-5">
+  <div class="max-w-2xl mx-auto relative">
+    <input type="text" id="search-input" placeholder="✨ Search rings, necklaces, earrings..." class="barbie-input" style="padding-left:20px;padding-right:52px;font-size:1rem;border-radius:50px;">
+    <button onclick="closeSearch()" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:none;color:var(--text-soft);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="search-results" class="max-w-2xl mx-auto mt-3 px-4"></div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div id="cart-overlay" class="fixed inset-0 z-40 hidden" style="background:rgba(255,105,180,.2);backdrop-filter:blur(4px);" onclick="closeCart()"></div>
+<div id="cart-sidebar" class="fixed top-0 right-0 h-full w-96 z-50 flex flex-col">
+  <div class="flex items-center justify-between px-7 py-6" style="border-bottom:1.5px solid rgba(255,180,217,.3);">
+    <div>
+      <div class="label mb-1">Shopping Bag</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text-dark);">My Collection 💗</div>
+    </div>
+    <button onclick="closeCart()" style="background:none;border:none;cursor:none;width:36px;height:36px;border-radius:50%;background:var(--powder);display:flex;align-items:center;justify-content:center;">
+      <!-- Animated X -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="2.5" style="transition:transform .3s" onmouseover="this.style.transform='rotate(90deg)'" onmouseout="this.style.transform='rotate(0)'"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="cart-items" class="flex-1 overflow-y-auto px-7 py-5">
+    <div id="cart-empty" class="flex flex-col items-center justify-center h-full gap-3 opacity-60">
+      <!-- Animated empty bag -->
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="1.2" style="animation:cartWiggle 2s ease infinite">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+        <circle cx="9" cy="14" r="1" fill="var(--c1)" opacity=".5"><animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite"/></circle>
+        <circle cx="15" cy="14" r="1" fill="var(--c1)" opacity=".5"><animate attributeName="opacity" values=".3;1;.3" dur="2s" begin=".5s" repeatCount="indefinite"/></circle>
+        <circle cx="12" cy="16" r="1" fill="var(--c1)" opacity=".5"><animate attributeName="opacity" values=".3;1;.3" dur="2s" begin="1s" repeatCount="indefinite"/></circle>
+      </svg>
+      <div style="font-family:'Quicksand';font-weight:600;font-size:.9rem;color:var(--text-mid);">Your bag is empty, gorgeous!</div>
+    </div>
+    <div id="cart-list"></div>
+  </div>
+  <div class="px-7 py-5" style="border-top:1.5px solid rgba(255,180,217,.3);">
+    <div class="flex justify-between items-center mb-4">
+      <span style="font-family:'Quicksand';font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft);">Total</span>
+      <span id="cart-total" style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--c1);">₹0</span>
+    </div>
+    <button class="btn-main w-full" onclick="checkout()">Checkout ✨</button>
+    <button class="btn-outline w-full mt-3" onclick="closeCart()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-7">
+  <button onclick="toggleMobileMenu()" style="position:absolute;top:24px;right:24px;background:var(--powder);border:none;cursor:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#collections" onclick="toggleMobileMenu()" style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:var(--c1);">Collections</a>
+  <a href="#products" onclick="toggleMobileMenu()" style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:var(--c1);">Shop</a>
+  <a href="#showroom" onclick="toggleMobileMenu()" style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:var(--c1);">Showroom</a>
+  <a href="#about" onclick="toggleMobileMenu()" style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:var(--c1);">Story</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-30 px-8 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-10">
+    <a href="#" style="font-family:'Dancing Script',cursive;font-size:1.9rem;font-weight:700;background:linear-gradient(135deg,var(--c1),var(--c2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;">SNEVAM ✨</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#collections" class="nav-link">Collections</a>
+      <a href="#products" class="nav-link">Shop</a>
+      <a href="#showroom" class="nav-link">Showroom</a>
+      <a href="#about" class="nav-link">Story</a>
+    </div>
+  </div>
+  <div class="flex items-center gap-3">
+    <!-- SEARCH — animated magnifier -->
+    <button class="nav-icon-btn" onclick="openSearch()" title="Search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-mid)" stroke-width="2" class="search-svg">
+        <circle cx="11" cy="11" r="7" class="search-circle" style="transition:stroke .3s"/>
+        <path d="m21 21-4.35-4.35" stroke-linecap="round"/>
+        <!-- Animated sparkle dot inside -->
+        <circle cx="9" cy="9" r="1.2" fill="var(--c1)" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></circle>
+      </svg>
+    </button>
+
+    <!-- CART — animated bag -->
+    <button class="nav-icon-btn" id="cart-nav-btn" onclick="openCart()" title="Cart">
+      <div style="position:relative">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-mid)" stroke-width="2" class="cart-svg" style="transition:stroke .3s">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" style="transition:fill .3s"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+          <!-- Animated star inside bag -->
+          <path d="M12 12l.5 1.5H14l-1.2.9.4 1.5L12 15l-1.2.9.4-1.5L10 13.5h1.5z" fill="var(--c1)" opacity="0">
+            <animate attributeName="opacity" values="0;0;1;0" dur="3s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+        <span id="cart-count" style="display:none;position:absolute;top:-9px;right:-9px;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--c1),var(--c2));color:white;font-size:.6rem;font-weight:700;align-items:center;justify-content:center;font-family:'Quicksand';box-shadow:0 2px 8px rgba(0,0,0,.2);">0</span>
+      </div>
+    </button>
+
+    <!-- WISHLIST HEART -->
+    <button class="nav-icon-btn hidden md:flex" onclick="showToast('Wishlist coming soon! 💗')" title="Wishlist">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-mid)" stroke-width="2" style="transition:all .3s">
+        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z">
+          <animate attributeName="stroke" values="var(--text-mid);var(--c1);var(--text-mid)" dur="3s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+    </button>
+
+    <button class="hidden md:block btn-main" style="padding:10px 24px;font-size:.7rem;" onclick="openAccountModal()">Sign In 💗</button>
+
+    <!-- MENU — animated hamburger -->
+    <button class="nav-icon-btn md:hidden" id="menu-toggle-btn" onclick="toggleMobileMenu()" title="Menu">
+      <svg id="menu-icon-lines" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="2.5" stroke-linecap="round">
+        <line id="bar1" x1="3" y1="7" x2="21" y2="7"/>
+        <line id="bar2" x1="3" y1="12" x2="21" y2="12"/>
+        <line id="bar3" x1="3" y1="17" x2="21" y2="17"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blob" style="width:500px;height:500px;background:radial-gradient(circle,rgba(255,105,180,.25),transparent);top:-100px;right:-50px;animation-duration:10s;"></div>
+  <div class="hero-blob" style="width:400px;height:400px;background:radial-gradient(circle,rgba(224,64,251,.2),transparent);bottom:0;left:-100px;animation-duration:13s;animation-delay:3s;"></div>
+  <div class="hero-blob" style="width:300px;height:300px;background:radial-gradient(circle,rgba(184,228,255,.3),transparent);top:40%;left:30%;animation-duration:8s;animation-delay:1s;"></div>
+
+  <div style="position:absolute;top:15%;left:5%;font-size:2rem;animation:floatDeco 4s ease-in-out infinite;opacity:.5">💎</div>
+  <div style="position:absolute;top:25%;right:8%;font-size:1.5rem;animation:floatDeco 5s ease-in-out infinite 1s;opacity:.6">✨</div>
+  <div style="position:absolute;bottom:30%;left:8%;font-size:1.8rem;animation:floatDeco 6s ease-in-out infinite 2s;opacity:.4">💍</div>
+  <div style="position:absolute;top:60%;right:5%;font-size:1.4rem;animation:floatDeco 4.5s ease-in-out infinite .5s;opacity:.5">🌸</div>
+
+  <div class="max-w-7xl mx-auto px-8 min-h-screen flex items-center relative z-10">
+    <div class="grid md:grid-cols-2 gap-12 items-center w-full pt-24 pb-12">
+      <div>
+        <div class="label mb-6">✨ New Collection 2025</div>
+        <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,5rem);line-height:1.05;margin-bottom:16px;color:var(--text-dark);">
+          Wear Your<br><em class="gradient-text" style="-webkit-text-fill-color:transparent;">Charm</em>
+        </h1>
+        <p style="font-family:'Dancing Script',cursive;font-size:1.5rem;color:var(--c1l);margin-bottom:20px;">Because you deserve to shine every day 💖</p>
+        <p style="font-family:'Quicksand';font-size:1rem;color:var(--text-mid);line-height:1.8;max-width:420px;font-weight:500;margin-bottom:36px;">Discover our dreamy collection of 3D luxury accessories — rings, necklaces, earrings & more, crafted for the girl who loves to sparkle.</p>
+        <div class="flex flex-wrap gap-4 items-center">
+          <button class="btn-main" onclick="scrollToSection('products')">Shop Now ✨</button>
+          <button class="btn-outline" onclick="scrollToSection('showroom')">Virtual Boutique 💗</button>
+        </div>
+        <div class="flex items-center gap-8 mt-12">
+          <div style="text-align:center"><div style="font-family:'Dancing Script',cursive;font-size:2rem;color:var(--c1);font-weight:700">2.4K+</div><div style="font-family:'Quicksand';font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft)">Happy Girls</div></div>
+          <div style="width:1px;height:40px;background:rgba(255,105,180,.25)"></div>
+          <div style="text-align:center"><div style="font-family:'Dancing Script',cursive;font-size:2rem;color:var(--c1);font-weight:700">380+</div><div style="font-family:'Quicksand';font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft)">Dreamy Pieces</div></div>
+          <div style="width:1px;height:40px;background:rgba(255,105,180,.25)"></div>
+          <div style="text-align:center"><div style="font-family:'Dancing Script',cursive;font-size:2rem;color:var(--c1);font-weight:700">4.9★</div><div style="font-family:'Quicksand';font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft)">Avg Rating</div></div>
+        </div>
+      </div>
+      <div class="hidden md:block relative">
+        <div class="grid grid-cols-2 gap-4" style="transform:rotate(2deg)">
+          <div style="border-radius:24px;overflow:hidden;height:240px;box-shadow:0 16px 40px rgba(255,31,142,.2);margin-top:30px"><img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&q=80" alt="Luxury Ring" style="width:100%;height:100%;object-fit:cover"></div>
+          <div style="border-radius:24px;overflow:hidden;height:240px;box-shadow:0 16px 40px rgba(224,64,251,.2)"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80" alt="Necklace" style="width:100%;height:100%;object-fit:cover"></div>
+          <div style="border-radius:24px;overflow:hidden;height:200px;box-shadow:0 16px 40px rgba(255,31,142,.15)"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80" alt="Earrings" style="width:100%;height:100%;object-fit:cover"></div>
+          <div style="border-radius:24px;overflow:hidden;height:200px;box-shadow:0 16px 40px rgba(184,228,255,.3);margin-top:-20px"><img src="https://images.unsplash.com/photo-1573408301185-9519f94815b8?w=400&q=80" alt="Bracelet" style="width:100%;height:100%;object-fit:cover"></div>
+        </div>
+        <div style="position:absolute;top:0;right:-20px;background:white;border-radius:20px;padding:14px 18px;box-shadow:0 8px 30px rgba(255,31,142,.2);border:1.5px solid rgba(255,180,217,.4)">
+          <div style="font-family:'Quicksand';font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1)">3D Interactive</div>
+          <div style="font-family:'Dancing Script',cursive;font-size:1rem;color:var(--text-dark);font-weight:600">360° View ✨</div>
+        </div>
+        <div style="position:absolute;bottom:20px;left:-30px;background:white;border-radius:20px;padding:14px 18px;box-shadow:0 8px 30px rgba(224,64,251,.2);border:1.5px solid rgba(228,180,255,.4)">
+          <div style="font-family:'Quicksand';font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c2)">New Arrival</div>
+          <div style="font-family:'Dancing Script',cursive;font-size:1rem;color:var(--text-dark);font-weight:600">Rose Gold Ring 💍</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+    <span style="font-family:'Quicksand';font-size:.6rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--text-soft)">Scroll</span>
+    <div style="width:24px;height:40px;border:2px solid rgba(255,105,180,.4);border-radius:12px;display:flex;justify-content:center;padding-top:6px">
+      <div style="width:4px;height:8px;border-radius:2px;background:linear-gradient(var(--c1),var(--lilac));animation:scrollDot 2s ease-in-out infinite"></div>
+    </div>
+  </div>
+  <style>@keyframes scrollDot{0%,100%{transform:translateY(0);opacity:1}100%{transform:translateY(12px);opacity:0}}</style>
+</section>
+
+<!-- MARQUEE -->
+<div style="background:linear-gradient(90deg,var(--c1),var(--c2),var(--c1l),var(--c2),var(--c1));padding:12px 0;overflow:hidden">
+  <div class="marquee-wrap"><div class="marquee-track">
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">💖 New Collection 2025</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">✨ Free Shipping Above ₹999</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">💍 3D Virtual Try-On</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">🌸 380+ Dreamy Pieces</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">💳 Secure Razorpay & Stripe</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">💖 New Collection 2025</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">✨ Free Shipping Above ₹999</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">💍 3D Virtual Try-On</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">🌸 380+ Dreamy Pieces</span>
+    <span style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:white;padding:0 36px">💳 Secure Razorpay & Stripe</span>
+  </div></div>
+</div>
+
+<!-- COLLECTIONS -->
+<section id="collections" style="padding:100px 0;background:var(--bg)">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="text-center mb-14 reveal">
+      <div class="label mb-4">Collections</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--text-dark)">Shop by <em class="gradient-text" style="-webkit-text-fill-color:transparent">Category</em></h2>
+      <p style="font-family:'Quicksand';font-size:1rem;color:var(--text-soft);margin-top:8px;font-weight:500">Discover curated luxury across every accessory ✨</p>
+    </div>
+    <div class="flex flex-wrap gap-3 justify-center mb-14 reveal">
+      <button class="cat-pill active" onclick="filterCategory('all',this)">💎 All Pieces</button>
+      <button class="cat-pill" onclick="filterCategory('rings',this)">💍 Rings</button>
+      <button class="cat-pill" onclick="filterCategory('necklaces',this)">📿 Necklaces</button>
+      <button class="cat-pill" onclick="filterCategory('earrings',this)">✨ Earrings</button>
+      <button class="cat-pill" onclick="filterCategory('bracelets',this)">💗 Bracelets</button>
+      <button class="cat-pill" onclick="filterCategory('hair',this)">🌸 Hair Accessories</button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+      <div class="md:col-span-2 relative overflow-hidden" style="border-radius:28px;height:380px">
+        <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&q=80" alt="Rose Gold" style="width:100%;height:100%;object-fit:cover;border-radius:28px">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(255,31,142,.6) 0%,transparent 60%);border-radius:28px"></div>
+        <div style="position:absolute;bottom:28px;left:28px">
+          <div class="label" style="color:white;margin-bottom:6px;opacity:.9">Featured Collection</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:white">Rose Gold <em>Elegance</em></div>
+          <button class="btn-main" style="margin-top:14px;padding:10px 24px;font-size:.68rem" onclick="filterCategory('rings',document.querySelector('.cat-pill:nth-child(2)'))">Shop Rings 💍</button>
+        </div>
+      </div>
+      <div class="grid grid-rows-2 gap-6">
+        <div class="relative overflow-hidden" style="border-radius:24px;height:175px">
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&q=80" alt="Pearl" style="width:100%;height:100%;object-fit:cover">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(224,64,251,.6) 0%,transparent 60%)"></div>
+          <div style="position:absolute;bottom:16px;left:18px"><div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:white">Pearl & Bloom</div><div style="font-family:'Quicksand';font-size:.68rem;color:rgba(255,255,255,.8);font-weight:600">32 Pieces</div></div>
+        </div>
+        <div class="relative overflow-hidden" style="border-radius:24px;height:175px">
+          <img src="https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=500&q=80" alt="Crystal" style="width:100%;height:100%;object-fit:cover">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(255,31,142,.6) 0%,transparent 60%)"></div>
+          <div style="position:absolute;bottom:16px;left:18px"><div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:white">Crystal Drops</div><div style="font-family:'Quicksand';font-size:.68rem;color:rgba(255,255,255,.8);font-weight:600">60 Pieces</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" style="padding:80px 0;background:var(--bg2)">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div class="reveal">
+        <div class="label mb-3">Our Catalogue</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--text-dark)">Featured <em class="gradient-text" style="-webkit-text-fill-color:transparent">Pieces</em> 💖</h2>
+      </div>
+      <div class="flex items-center gap-3 reveal">
+        <span style="font-family:'Quicksand';font-weight:600;font-size:.75rem;color:var(--text-soft)">Sort by</span>
+        <select id="sort-select" onchange="sortProducts()" style="background:white;border:1.5px solid rgba(255,180,217,.4);border-radius:50px;color:var(--text-dark);font-family:'Quicksand';font-weight:600;font-size:.78rem;padding:9px 18px;outline:none;cursor:none">
+          <option value="featured">Featured</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+    </div>
+    <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    <div class="text-center mt-10 reveal">
+      <button class="btn-outline" onclick="showToast('All dreamy pieces loaded! 🌸')">Load More ✨</button>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWROOM -->
+<section id="showroom" style="padding:100px 0;background:linear-gradient(160deg,var(--bg),var(--lavender),var(--cotton))">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="reveal">
+        <div class="label mb-5">Virtual Experience</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--text-dark);margin-bottom:16px">Our <em class="gradient-text" style="-webkit-text-fill-color:transparent">3D Boutique</em> ✨</h2>
+        <p style="font-family:'Quicksand';font-size:1rem;font-weight:500;color:var(--text-mid);line-height:1.8;margin-bottom:28px">Step into our dreamy virtual showroom! Rotate, zoom, and truly fall in love with every sparkle before you buy.</p>
+        <div class="flex flex-col gap-3 mb-8">
+          <div class="flex items-center gap-3"><span style="font-size:1.1rem">💎</span><span style="font-family:'Quicksand';font-size:.88rem;font-weight:600;color:var(--text-mid)">360° interactive rotation on every product</span></div>
+          <div class="flex items-center gap-3"><span style="font-size:1.1rem">✨</span><span style="font-family:'Quicksand';font-size:.88rem;font-weight:600;color:var(--text-mid)">Real-time lighting & material inspection</span></div>
+          <div class="flex items-center gap-3"><span style="font-size:1.1rem">🌸</span><span style="font-family:'Quicksand';font-size:.88rem;font-weight:600;color:var(--text-mid)">AR Try-On coming in Phase 2!</span></div>
+        </div>
+        <button class="btn-main" onclick="showToast('Full AR Showroom launching soon! 🌸✨')">Enter Boutique 💗</button>
+      </div>
+      <div class="reveal" style="background:white;border-radius:28px;overflow:hidden;border:1.5px solid rgba(255,180,217,.35);box-shadow:0 20px 60px rgba(255,31,142,.15);height:400px;position:relative">
+        <canvas id="showroom-canvas" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
+        <div style="position:absolute;top:16px;left:16px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-radius:12px;padding:8px 14px;border:1px solid rgba(255,180,217,.3)">
+          <div style="font-family:'Quicksand';font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1)">3D Interactive · Drag ✨</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI STYLIST -->
+<section style="padding:100px 0;background:var(--bg)">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="grid md:grid-cols-2 gap-16 items-start">
+      <div class="reveal">
+        <div class="label mb-5">Powered by AI</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--text-dark);margin-bottom:16px">Your Personal<br><em class="gradient-text" style="-webkit-text-fill-color:transparent">Style BFF</em> 💕</h2>
+        <p style="font-family:'Quicksand';font-size:1rem;font-weight:500;color:var(--text-mid);line-height:1.8;margin-bottom:28px">Describe your look, occasion, or vibe and our AI bestie will curate the perfect accessory combo just for you! ✨</p>
+        <div class="grid grid-cols-2 gap-4">
+          <div style="background:white;border-radius:16px;padding:16px;border:1.5px solid rgba(255,180,217,.25)"><div style="font-size:1.4rem;margin-bottom:6px">💍</div><div style="font-family:'Quicksand';font-size:.8rem;font-weight:700;color:var(--text-dark)">Outfit Pairing</div><div style="font-family:'Quicksand';font-size:.72rem;color:var(--text-soft);margin-top:3px">Perfect match suggestions</div></div>
+          <div style="background:white;border-radius:16px;padding:16px;border:1.5px solid rgba(255,180,217,.25)"><div style="font-size:1.4rem;margin-bottom:6px">🌸</div><div style="font-family:'Quicksand';font-size:.8rem;font-weight:700;color:var(--text-dark)">Occasion Looks</div><div style="font-family:'Quicksand';font-size:.72rem;color:var(--text-soft);margin-top:3px">Curated for any event</div></div>
+          <div style="background:white;border-radius:16px;padding:16px;border:1.5px solid rgba(255,180,217,.25)"><div style="font-size:1.4rem;margin-bottom:6px">✨</div><div style="font-family:'Quicksand';font-size:.8rem;font-weight:700;color:var(--text-dark)">3D Preview</div><div style="font-family:'Quicksand';font-size:.72rem;color:var(--text-soft);margin-top:3px">See before you buy</div></div>
+          <div style="background:white;border-radius:16px;padding:16px;border:1.5px solid rgba(255,180,217,.25)"><div style="font-size:1.4rem;margin-bottom:6px">💕</div><div style="font-family:'Quicksand';font-size:.8rem;font-weight:700;color:var(--text-dark)">Style Tips</div><div style="font-family:'Quicksand';font-size:.72rem;color:var(--text-soft);margin-top:3px">Expert fashion advice</div></div>
+        </div>
+      </div>
+      <div class="reveal" style="background:white;border-radius:28px;border:1.5px solid rgba(255,180,217,.3);overflow:hidden;box-shadow:0 8px 40px rgba(255,31,142,.08)">
+        <div style="background:linear-gradient(135deg,var(--c1),var(--c2));padding:18px 24px">
+          <div style="font-family:'Dancing Script',cursive;font-size:1.3rem;color:white;font-weight:700">💕 SNEVAM AI Stylist</div>
+          <div style="font-family:'Quicksand';font-size:.72rem;color:rgba(255,255,255,.8);font-weight:500;margin-top:2px">✨ Online · Always here for you</div>
+        </div>
+        <div id="chat-messages" style="height:280px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px">
+          <div style="background:var(--powder);border-radius:4px 18px 18px 18px;padding:12px 16px;max-width:90%">
+            <div style="font-family:'Quicksand';font-size:.8rem;font-weight:600;color:var(--c1);margin-bottom:4px">Snevam AI 💕</div>
+            <div style="font-family:'Quicksand';font-size:.82rem;color:var(--text-dark);line-height:1.6;font-weight:500">Hi gorgeous! ✨ I'm your personal style bestie. Tell me about your occasion, outfit or vibe and I'll suggest the most dreamy accessories! 💖</div>
+          </div>
+        </div>
+        <div style="padding:16px 20px;border-top:1.5px solid rgba(255,180,217,.25)">
+          <div class="flex gap-2 flex-wrap mb-3">
+            <button onclick="quickStylist('Wedding look 💒')" style="background:var(--powder);border:1px solid rgba(255,180,217,.4);color:var(--c1);font-family:'Quicksand';font-size:.68rem;font-weight:600;padding:5px 12px;border-radius:20px;cursor:none;transition:all .2s" onmouseover="this.style.background='var(--cotton)'" onmouseout="this.style.background='var(--powder)'">💒 Wedding</button>
+            <button onclick="quickStylist('Office chic look')" style="background:var(--powder);border:1px solid rgba(255,180,217,.4);color:var(--c1);font-family:'Quicksand';font-size:.68rem;font-weight:600;padding:5px 12px;border-radius:20px;cursor:none;transition:all .2s" onmouseover="this.style.background='var(--cotton)'" onmouseout="this.style.background='var(--powder)'">💼 Office</button>
+            <button onclick="quickStylist('Date night look')" style="background:var(--powder);border:1px solid rgba(255,180,217,.4);color:var(--c1);font-family:'Quicksand';font-size:.68rem;font-weight:600;padding:5px 12px;border-radius:20px;cursor:none;transition:all .2s" onmouseover="this.style.background='var(--cotton)'" onmouseout="this.style.background='var(--powder)'">🌹 Date</button>
+            <button onclick="quickStylist('Everyday minimal style')" style="background:var(--powder);border:1px solid rgba(255,180,217,.4);color:var(--c1);font-family:'Quicksand';font-size:.68rem;font-weight:600;padding:5px 12px;border-radius:20px;cursor:none;transition:all .2s" onmouseover="this.style.background='var(--cotton)'" onmouseout="this.style.background='var(--powder)'">🌸 Everyday</button>
+          </div>
+          <div class="flex gap-2">
+            <input type="text" id="stylist-input" placeholder="Tell me your vibe... ✨" class="barbie-input flex-1" style="border-radius:50px;padding:11px 18px;font-size:.82rem" onkeydown="if(event.key==='Enter')sendStylistMsg()">
+            <button class="btn-main" onclick="sendStylistMsg()" style="padding:11px 20px;border-radius:50px;min-width:48px">💌</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SNEVAM -->
+<section style="padding:80px 0;background:var(--bg2)">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="text-center mb-14 reveal">
+      <div class="label mb-4">Why SNEVAM?</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--text-dark)">Made for <em class="gradient-text" style="-webkit-text-fill-color:transparent">Girls Like You</em> 💖</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="feature-card reveal"><div class="icon-circle">
+        <!-- Animated 3D icon -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"><animate attributeName="stroke" values="var(--c1);var(--c2);var(--c1)" dur="3s" repeatCount="indefinite"/></path><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text-dark);margin-bottom:8px">3D Precision Craft</div><div style="font-family:'Quicksand';font-size:.8rem;color:var(--text-soft);font-weight:500;line-height:1.7">Every piece in photorealistic 3D. See every sparkle before buying.</div></div>
+
+      <div class="feature-card reveal" style="animation-delay:.1s"><div class="icon-circle">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"><animate attributeName="stroke-dasharray" values="0 60;60 0;0 60" dur="3s" repeatCount="indefinite"/><animate attributeName="stroke-dashoffset" values="0;-60" dur="3s" repeatCount="indefinite"/></path></svg>
+      </div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text-dark);margin-bottom:8px">Safe & Secure</div><div style="font-family:'Quicksand';font-size:.8rem;color:var(--text-soft);font-weight:500;line-height:1.7">PCI-DSS payments. AES-256 encryption. Your data is always safe.</div></div>
+
+      <div class="feature-card reveal" style="animation-delay:.2s"><div class="icon-circle">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"><animateTransform attributeName="transform" type="rotate" values="0 12 12;5 12 12;0 12 12;-5 12 12;0 12 12" dur="2s" repeatCount="indefinite"/></polygon></svg>
+      </div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text-dark);margin-bottom:8px">Fast Delivery</div><div style="font-family:'Quicksand';font-size:.8rem;color:var(--text-soft);font-weight:500;line-height:1.7">Express 2-day delivery across India. Track from boutique to door.</div></div>
+
+      <div class="feature-card reveal" style="animation-delay:.3s"><div class="icon-circle">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"><animate attributeName="stroke" values="var(--c1);var(--c2);var(--c1)" dur="2s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="1;1.1;1" dur="1s" additive="sum" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0.05 0.55 0.95;0.45 0.05 0.55 0.95" keyTimes="0;0.5;1"/></path></svg>
+      </div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text-dark);margin-bottom:8px">Easy Returns</div><div style="font-family:'Quicksand';font-size:.8rem;color:var(--text-soft);font-weight:500;line-height:1.7">15-day hassle-free returns. Quality guaranteed on every piece.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="padding:100px 0;background:var(--bg)">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="text-center mb-14 reveal">
+      <div class="label mb-4">Reviews</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--text-dark)">Loved by <em class="gradient-text" style="-webkit-text-fill-color:transparent">Girls Everywhere</em> 💕</h2>
+    </div>
+    <div id="testimonials-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section style="padding:80px 0;background:linear-gradient(135deg,var(--cotton),var(--lavender),var(--cotton))">
+  <div class="max-w-xl mx-auto px-8 text-center reveal">
+    <div style="font-size:3rem;margin-bottom:16px">
+      <!-- Animated envelope -->
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="1.8" style="margin:0 auto;display:block">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+        <circle cx="19" cy="8" r="3" fill="var(--c1)" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/><animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/></circle>
+      </svg>
+    </div>
+    <div class="label mb-4">Join the Circle</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--text-dark);margin-bottom:12px">Stay <em class="gradient-text" style="-webkit-text-fill-color:transparent">Charmed</em></h2>
+    <p style="font-family:'Quicksand';font-size:.95rem;font-weight:500;color:var(--text-mid);margin-bottom:28px;line-height:1.7">Be the first to know about new drops, exclusive offers & style inspo 🌸</p>
+    <div class="flex gap-3 flex-col sm:flex-row">
+      <input type="email" placeholder="your@email.com ✨" class="barbie-input flex-1">
+      <button class="btn-main" onclick="subscribeNewsletter()">Subscribe 💗</button>
+    </div>
+    <div style="font-family:'Quicksand';font-size:.7rem;color:var(--text-soft);margin-top:10px;font-weight:500">No spam. Unsubscribe anytime. Pinky promise! 🤙</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="padding:100px 0;background:var(--bg2)">
+  <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <div class="label mb-6">Our Story</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--text-dark);margin-bottom:20px">Born from a love of<br><em class="gradient-text" style="-webkit-text-fill-color:transparent">Fashion & Magic</em> ✨</h2>
+      <p style="font-family:'Quicksand';font-size:1rem;font-weight:500;color:var(--text-mid);line-height:1.8;margin-bottom:18px">SNEVAM was founded with one dream: to bring the magic of a luxury boutique into the digital world — and make it pink, sparkly, and absolutely gorgeous.</p>
+      <p style="font-family:'Quicksand';font-size:1rem;font-weight:500;color:var(--text-mid);line-height:1.8;margin-bottom:32px">Our 3D technology lets you see every glimmer, every texture, every curve — making online jewelry shopping as intimate as stepping into your favorite boutique. 💗</p>
+      <button class="btn-main" onclick="scrollToSection('products')">Discover Our Pieces ✨</button>
+    </div>
+    <div class="reveal grid grid-cols-2 gap-4">
+      <div style="border-radius:20px;overflow:hidden;height:200px;box-shadow:0 8px 30px rgba(255,31,142,.15)"><img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?w=400&q=80" alt="Story" style="width:100%;height:100%;object-fit:cover"></div>
+      <div style="border-radius:20px;overflow:hidden;height:200px;box-shadow:0 8px 30px rgba(224,64,251,.15);margin-top:24px"><img src="https://images.unsplash.com/photo-1619119069152-a2b331eb392a?w=400&q=80" alt="Craft" style="width:100%;height:100%;object-fit:cover"></div>
+      <div style="border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 30px rgba(255,31,142,.12);margin-top:-24px"><img src="https://images.unsplash.com/photo-1568944396806-c0b8ee8b124f?w=400&q=80" alt="Collection" style="width:100%;height:100%;object-fit:cover"></div>
+      <div style="border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 30px rgba(184,228,255,.3)"><img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=400&q=80" alt="Brand" style="width:100%;height:100%;object-fit:cover"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer" style="padding:64px 0 32px">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+      <div>
+        <div style="font-family:'Dancing Script',cursive;font-size:2rem;font-weight:700;background:linear-gradient(135deg,var(--c1),var(--c2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px">SNEVAM ✨</div>
+        <div style="font-family:'Dancing Script',cursive;font-size:.95rem;color:var(--c1l);margin-bottom:12px">Wear Your Charm</div>
+        <p style="font-family:'Quicksand';font-size:.8rem;color:var(--text-soft);line-height:1.8;font-weight:500;margin-bottom:16px">Premium 3D luxury accessories for the modern girl. 💗</p>
+        <div class="flex gap-3">
+          <a href="#" style="width:36px;height:36px;border-radius:50%;background:var(--powder);border:1.5px solid rgba(255,180,217,.4);display:flex;align-items:center;justify-content:center;font-size:.9rem;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--c1)'" onmouseout="this.style.background='var(--powder)'">📸</a>
+          <a href="#" style="width:36px;height:36px;border-radius:50%;background:var(--powder);border:1.5px solid rgba(255,180,217,.4);display:flex;align-items:center;justify-content:center;font-size:.9rem;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--c1)'" onmouseout="this.style.background='var(--powder)'">💙</a>
+          <a href="#" style="width:36px;height:36px;border-radius:50%;background:var(--powder);border:1.5px solid rgba(255,180,217,.4);display:flex;align-items:center;justify-content:center;font-size:.9rem;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--c1)'" onmouseout="this.style.background='var(--powder)'">🐦</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Quicksand';font-weight:700;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c1);margin-bottom:16px">Shop</div>
+        <div class="flex flex-col gap-3">
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">💍 Rings</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">📿 Necklaces</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">✨ Earrings</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">💗 Bracelets</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">🌸 Hair Accessories</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Quicksand';font-weight:700;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c1);margin-bottom:16px">Support</div>
+        <div class="flex flex-col gap-3">
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">Track Order</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">Returns & Exchange</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">Size Guide</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">FAQ</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">Contact Us</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Quicksand';font-weight:700;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c1);margin-bottom:16px">Company</div>
+        <div class="flex flex-col gap-3">
+          <a href="#about" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">About Us</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">Careers</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">Privacy Policy</a>
+          <a href="#" style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--text-mid)'">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1.5px solid rgba(255,180,217,.3);padding-top:24px;display:flex;flex-direction:column;align-items:center;gap:10px">
+      <div class="flex items-center gap-4 flex-wrap justify-center">
+        <div style="background:white;border:1.5px solid rgba(255,180,217,.3);border-radius:8px;padding:4px 12px;font-family:'Quicksand';font-size:.7rem;font-weight:700;color:#072654">VISA</div>
+        <div style="background:white;border:1.5px solid rgba(255,180,217,.3);border-radius:8px;padding:4px 10px;font-size:.7rem">💳 MC</div>
+        <div style="background:white;border:1.5px solid rgba(255,180,217,.3);border-radius:8px;padding:4px 12px;font-family:'Quicksand';font-size:.7rem;font-weight:800;color:#072654">razorpay</div>
+        <div style="background:#635BFF;border-radius:8px;padding:5px 12px;font-family:'Quicksand';font-size:.7rem;font-weight:700;color:white">stripe</div>
+      </div>
+      <div style="font-family:'Quicksand';font-size:.72rem;font-weight:500;color:var(--text-soft)">© 2025 SNEVAM. All rights reserved. Made with 💖 in India.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- PRODUCT MODAL -->
+<div id="product-modal" class="fixed inset-0 z-50 items-center justify-center p-4">
+  <div class="modal-bg absolute inset-0" onclick="closeModal()"></div>
+  <div class="modal-box relative w-full max-w-4xl z-10">
+    <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;background:var(--powder);border:none;cursor:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:10">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="2.5" style="transition:transform .3s" onmouseover="this.style.transform='rotate(90deg)'" onmouseout="this.style.transform='rotate(0)'"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="grid md:grid-cols-2">
+      <div style="height:380px;background:linear-gradient(135deg,var(--powder),var(--lavender));border-radius:28px 0 0 28px;position:relative;overflow:hidden">
+        <img id="modal-product-img" src="" alt="" style="width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;top:14px;left:14px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:10px;padding:6px 12px">
+          <!-- Animated 3D badge -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"><animate attributeName="stroke" values="var(--c1);var(--c2);var(--c1)" dur="2s" repeatCount="indefinite"/></path></svg>
+          <span style="font-family:'Quicksand';font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c1);vertical-align:middle">360° View</span>
+        </div>
+      </div>
+      <div style="padding:36px">
+        <div class="label mb-2" id="modal-category"></div>
+        <div id="modal-name" style="font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--text-dark);line-height:1.2;margin-bottom:10px"></div>
+        <div class="flex items-center gap-2 mb-4"><div id="modal-stars" class="flex gap-0.5"></div><span id="modal-reviews" style="font-family:'Quicksand';font-size:.75rem;font-weight:500;color:var(--text-soft)"></span></div>
+        <div class="flex items-center gap-3 mb-5">
+          <span id="modal-price" style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--c1)"></span>
+          <span id="modal-original" class="price-old"></span>
+        </div>
+        <div id="modal-desc" style="font-family:'Quicksand';font-size:.88rem;font-weight:500;color:var(--text-mid);line-height:1.8;margin-bottom:22px"></div>
+        <div style="margin-bottom:20px">
+          <div style="font-family:'Quicksand';font-weight:700;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-soft);margin-bottom:8px">Quantity</div>
+          <div class="flex items-center" style="background:var(--powder);border-radius:50px;width:fit-content;border:1.5px solid rgba(255,180,217,.4)">
+            <button onclick="changeQty(-1)" style="width:38px;height:38px;background:none;border:none;cursor:none;color:var(--c1);font-size:1.2rem;font-weight:700;border-radius:50px">−</button>
+            <span id="modal-qty" style="width:36px;text-align:center;font-family:'Quicksand';font-weight:700;font-size:1rem;color:var(--text-dark)">1</span>
+            <button onclick="changeQty(1)" style="width:38px;height:38px;background:none;border:none;cursor:none;color:var(--c1);font-size:1.2rem;font-weight:700;border-radius:50px">+</button>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <button class="btn-main flex-1" onclick="addToCartFromModal()">Add to Bag 💗</button>
+          <button onclick="wishlistModal()" style="width:48px;height:48px;border-radius:50%;background:var(--powder);border:1.5px solid rgba(255,180,217,.4);cursor:none;display:flex;align-items:center;justify-content:center;transition:all .3s" onmouseover="this.style.background='var(--cotton)'" onmouseout="this.style.background='var(--powder)'">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"><animate attributeName="stroke" values="var(--c1);var(--c2);var(--c1)" dur="2s" repeatCount="indefinite"/></path></svg>
+          </button>
+        </div>
+        <div style="margin-top:18px;padding-top:16px;border-top:1.5px solid rgba(255,180,217,.2);font-family:'Quicksand';font-size:.72rem;font-weight:500;color:var(--text-soft)">💗 Free delivery above ₹999 · 15-day easy returns · Secure checkout ✨</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT MODAL -->
+<div id="account-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <div class="absolute inset-0 modal-bg" onclick="closeAccountModal()"></div>
+  <div class="modal-box relative w-full max-w-sm z-10" style="padding:44px">
+    <button onclick="closeAccountModal()" style="position:absolute;top:14px;right:14px;background:var(--powder);border:none;cursor:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="2.5" style="transition:transform .3s" onmouseover="this.style.transform='rotate(90deg)'" onmouseout="this.style.transform='rotate(0)'"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:2.5rem;margin-bottom:8px">👑</div>
+      <div style="font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--text-dark);font-weight:700">Welcome Back!</div>
+      <div style="font-family:'Quicksand';font-size:.85rem;font-weight:500;color:var(--text-soft);margin-top:4px">Sign in to your SNEVAM account ✨</div>
+    </div>
+    <div class="flex flex-col gap-4">
+      <div><div style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-soft);margin-bottom:7px">Email</div><input type="email" placeholder="your@email.com" class="barbie-input"></div>
+      <div><div style="font-family:'Quicksand';font-weight:700;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-soft);margin-bottom:7px">Password</div><input type="password" placeholder="••••••••••" class="barbie-input"></div>
+      <button class="btn-main w-full mt-1" onclick="handleSignIn()">Sign In 💗</button>
+      <div class="divider" style="font-family:'Quicksand';font-size:.75rem;color:var(--text-soft)">or</div>
+      <button onclick="handleGoogleAuth()" style="background:white;border:1.5px solid rgba(255,180,217,.4);border-radius:50px;padding:13px;cursor:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s;font-family:'Quicksand';font-weight:600;font-size:.78rem;color:var(--text-dark)" onmouseover="this.style.background='var(--powder)'" onmouseout="this.style.background='white'">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+    </div>
+    <div style="text-align:center;margin-top:18px;font-family:'Quicksand';font-size:.78rem;color:var(--text-soft)">No account? <a href="#" onclick="handleSignIn()" style="color:var(--c1);font-weight:700;text-decoration:none">Create one 💗</a></div>
+  </div>
+</div>
+
+<script>
+// ===================== PRODUCT DATA =====================
+const products=[
+  {id:1,name:"Celestial Rose Ring",category:"rings",price:4299,original:5999,rating:4.9,reviews:128,desc:"Delicately crafted rose gold ring with celestial motifs. Available in sterling silver and 18k gold plating.",badge:"Bestseller",img:"https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?w=600&q=85"},
+  {id:2,name:"Pearl Cascade Necklace",category:"necklaces",price:6799,original:8500,rating:4.8,reviews:94,desc:"Freshwater pearl cascade with 18k rose gold chain. Elegant and timeless.",badge:"New 🌸",img:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=85"},
+  {id:3,name:"Moonstone Drop Earrings",category:"earrings",price:3299,original:4200,rating:4.7,reviews:76,desc:"Rainbow moonstone drops with delicate gold wire setting. Perfect for special occasions.",badge:"",img:"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=85"},
+  {id:4,name:"Woven Gold Bracelet",category:"bracelets",price:5499,original:7200,rating:4.9,reviews:112,desc:"Hand-woven 18k gold-plated bracelet with adjustable closure.",badge:"Hot 🔥",img:"https://images.unsplash.com/photo-1573408301185-9519f94815b8?w=600&q=85"},
+  {id:5,name:"Crystal Bloom Hairpin",category:"hair",price:1899,original:2400,rating:4.6,reviews:58,desc:"Swarovski crystal floral hairpin. Adds instant elegance to any hairstyle.",badge:"New ✨",img:"https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=600&q=85"},
+  {id:6,name:"Infinity Diamond Ring",category:"rings",price:7999,original:10500,rating:5.0,reviews:45,desc:"Lab-grown diamond infinity band in 18k white gold plating. Symbol of eternal love.",badge:"Luxury 💎",img:"https://images.unsplash.com/photo-1585841273690-f09d6b5e3d13?w=600&q=85"},
+  {id:7,name:"Layered Chain Necklace",category:"necklaces",price:3499,original:4500,rating:4.7,reviews:87,desc:"Multi-layer gold-tone chain necklace set. Versatile everyday elegance.",badge:"",img:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&q=85"},
+  {id:8,name:"Crystal Hoop Earrings",category:"earrings",price:2799,original:3600,rating:4.8,reviews:163,desc:"Micro-pavé cubic zirconia hoops. Lightweight yet strikingly glamorous.",badge:"Popular 💕",img:"https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=600&q=85"},
+];
+
+const testimonials=[
+  {name:"Priya Sharma",loc:"Mumbai",text:"Absolutely in love! The 3D viewer let me see every sparkle before buying. The ring was even more gorgeous in person! 💍",stars:5,item:"Celestial Rose Ring",avatar:"P"},
+  {name:"Ananya Patel",loc:"Bangalore",text:"The Pearl Cascade Necklace is stunning! SNEVAM's packaging felt like opening a dream gift 🌸",stars:5,item:"Pearl Cascade Necklace",avatar:"A"},
+  {name:"Riya Kapoor",loc:"Delhi",text:"The AI Stylist is so helpful! Picked the perfect set for my sister's wedding and I got SO many compliments! 💕✨",stars:5,item:"Crystal Bloom Hairpin",avatar:"R"},
+];
+
+// ===================== STATE =====================
+let cart=[],wishlist=[],currentCategory='all',currentProduct=null,modalQty=1,themePanelOpen=false;
+
+// ==================== SPARKLE TRAIL ====================
+const trailCanvas = document.getElementById('trail-canvas');
+const tctx = trailCanvas.getContext('2d');
+trailCanvas.width = window.innerWidth;
+trailCanvas.height = window.innerHeight;
+window.addEventListener('resize', () => {
+  trailCanvas.width = window.innerWidth;
+  trailCanvas.height = window.innerHeight;
+});
+
+const sparkles = [];
+const sparkleColors = ['#FF1F8E','#E040FB','#FF69B4','#FFB3D9','#B8E4FF','#E8B4FF','#FFF4B8'];
+
+// Sparkle shapes: star, heart, circle, diamond
+function drawStar(ctx, x, y, r, color, alpha, rot) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color;
+  ctx.translate(x, y); ctx.rotate(rot);
+  ctx.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const outerR = r, innerR = r * 0.4;
+    const outerAngle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+    const innerAngle = ((i * 4 + 2) * Math.PI) / 5 - Math.PI / 2;
+    if (i === 0) ctx.moveTo(Math.cos(outerAngle)*outerR, Math.sin(outerAngle)*outerR);
+    else ctx.lineTo(Math.cos(outerAngle)*outerR, Math.sin(outerAngle)*outerR);
+    ctx.lineTo(Math.cos(innerAngle)*innerR, Math.sin(innerAngle)*innerR);
+  }
+  ctx.closePath(); ctx.fill(); ctx.restore();
+}
+
+function drawHeart(ctx, x, y, size, color, alpha) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color;
+  ctx.translate(x, y); ctx.scale(size/10, size/10);
+  ctx.beginPath();
+  ctx.moveTo(0, -3);
+  ctx.bezierCurveTo(0, -6, -5, -6, -5, -2);
+  ctx.bezierCurveTo(-5, 2, 0, 5, 0, 7);
+  ctx.bezierCurveTo(0, 5, 5, 2, 5, -2);
+  ctx.bezierCurveTo(5, -6, 0, -6, 0, -3);
+  ctx.closePath(); ctx.fill(); ctx.restore();
+}
+
+document.addEventListener('mousemove', e => {
+  const color = sparkleColors[Math.floor(Math.random() * sparkleColors.length)];
+  const type = Math.random() > 0.4 ? 'star' : (Math.random() > 0.5 ? 'heart' : 'circle');
+  sparkles.push({
+    x: e.clientX + (Math.random()-0.5)*16,
+    y: e.clientY + (Math.random()-0.5)*16,
+    r: Math.random()*5 + 2,
+    color, type,
+    vx: (Math.random()-0.5)*1.5,
+    vy: -(Math.random()*2 + 0.5),
+    alpha: 0.9,
+    rot: Math.random()*Math.PI*2,
+    life: 1.0
+  });
+  if (sparkles.length > 120) sparkles.splice(0, sparkles.length - 120);
+  // Move wand
+  const wand = document.getElementById('cursor-wand');
+  wand.style.left = e.clientX + 'px';
+  wand.style.top = e.clientY + 'px';
+});
+
+function animateTrail() {
+  tctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+  for (let i = sparkles.length - 1; i >= 0; i--) {
+    const s = sparkles[i];
+    s.x += s.vx; s.y += s.vy;
+    s.life -= 0.03; s.alpha = s.life * 0.9;
+    s.rot += 0.08; s.r *= 0.985;
+    if (s.life <= 0) { sparkles.splice(i, 1); continue; }
+    if (s.type === 'star') drawStar(tctx, s.x, s.y, s.r, s.color, s.alpha, s.rot);
+    else if (s.type === 'heart') drawHeart(tctx, s.x, s.y, s.r*2, s.color, s.alpha);
+    else {
+      tctx.save(); tctx.globalAlpha = s.alpha; tctx.fillStyle = s.color;
+      tctx.beginPath(); tctx.arc(s.x, s.y, s.r, 0, Math.PI*2); tctx.fill(); tctx.restore();
+    }
+  }
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+// ===================== CLICK — BIG HEART BURST =====================
+document.addEventListener('click',e=>{
+  // Don't throw heart on button clicks in critical areas
+  const heart=document.createElement('div');
+  heart.className='heart-burst';
+  heart.innerHTML='💖';
+  heart.style.left=e.clientX+'px';
+  heart.style.top=e.clientY+'px';
+  document.body.appendChild(heart);
+  // Extra sparkle burst at click
+  for(let i=0;i<12;i++){
+    goldTrailParticles.push({
+      x:e.clientX,y:e.clientY,
+      r:Math.random()*5+2,
+      color:goldColors[Math.floor(Math.random()*goldColors.length)],
+      type:Math.random()>.5?'star':'heart',
+      vx:(Math.random()-.5)*5,
+      vy:(Math.random()-.5)*5,
+      alpha:1,life:1.2,
+      rot:Math.random()*Math.PI*2
+    });
+  }
+  setTimeout(()=>heart.remove(),1000);
+});
+
+
+
+
+// ===================== THEME SWITCHER =====================
+function toggleThemePanel(){
+  themePanelOpen=!themePanelOpen;
+  document.getElementById('theme-panel').classList.toggle('open',themePanelOpen);
+}
+
+function setTheme(name,btn){
+  // Remove all theme classes
+  document.body.className=document.body.className.replace(/theme-\S+/g,'').trim();
+  if(name!=='barbie') document.body.classList.add('theme-'+name);
+  // Update active button
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  // Close panel after pick
+  setTimeout(()=>{themePanelOpen=false;document.getElementById('theme-panel').classList.remove('open')},600);
+}
+
+// ===================== LOADING =====================
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loading-screen').classList.add('hide');
+    renderProducts();renderTestimonials();initShowroomCanvas();initScrollReveal();
+  },1400);
+});
+
+// ===================== NAVBAR =====================
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+});
+
+// ===================== SCROLL REVEAL =====================
+function initScrollReveal(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
+  },{threshold:.1});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>io.observe(el));
+}
+
+// ===================== PRODUCTS =====================
+function renderProducts(list){
+  const data=(list||products).filter(p=>currentCategory==='all'||p.category===currentCategory);
+  document.getElementById('products-grid').innerHTML=data.map(p=>`
+    <div class="product-card reveal" onclick="openProduct(${p.id})" style="cursor:none">
+      <div class="img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        ${p.badge?`<div class="badge">${p.badge}</div>`:''}
+        <button class="wishlist-btn ${wishlist.includes(p.id)?'active':''}" onclick="event.stopPropagation();toggleWishlist(${p.id},this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="${wishlist.includes(p.id)?'var(--c1)':'none'}" stroke="var(--c1)" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+        </button>
+        <div class="quick-view">
+          <button class="btn-main w-full" style="font-size:.65rem;padding:10px" onclick="event.stopPropagation();openProduct(${p.id})">Quick View ✨</button>
+        </div>
+      </div>
+      <div style="padding:18px">
+        <div style="font-family:'Quicksand';font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);margin-bottom:5px">${p.category}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--text-dark);margin-bottom:7px;line-height:1.3">${p.name}</div>
+        <div style="font-size:.82rem;margin-bottom:10px;color:var(--c1)">${'★'.repeat(Math.floor(p.rating))}<span style="font-family:'Quicksand';font-size:.68rem;color:var(--text-soft);margin-left:4px;font-weight:500">(${p.reviews})</span></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <span style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--c1)">₹${p.price.toLocaleString()}</span>
+            <span class="price-old ml-2">₹${p.original.toLocaleString()}</span>
+          </div>
+          <button class="btn-main" style="padding:8px 16px;font-size:.62rem" onclick="event.stopPropagation();addToCart(${p.id})">+ Bag</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  setTimeout(()=>initScrollReveal(),80);
+}
+
+function filterCategory(cat,btn){
+  currentCategory=cat;
+  document.querySelectorAll('.cat-pill').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  scrollToSection('products');
+  renderProducts();
+}
+
+function sortProducts(){
+  const v=document.getElementById('sort-select').value;
+  let s=[...products].filter(p=>currentCategory==='all'||p.category===currentCategory);
+  if(v==='price-low') s.sort((a,b)=>a.price-b.price);
+  else if(v==='price-high') s.sort((a,b)=>b.price-a.price);
+  else if(v==='rating') s.sort((a,b)=>b.rating-a.rating);
+  renderProducts(s);
+}
+
+// ===================== PRODUCT MODAL =====================
+function openProduct(id){
+  currentProduct=products.find(p=>p.id===id);
+  if(!currentProduct) return;
+  modalQty=1;
+  document.getElementById('modal-category').textContent=currentProduct.category;
+  document.getElementById('modal-name').textContent=currentProduct.name;
+  document.getElementById('modal-price').textContent='₹'+currentProduct.price.toLocaleString();
+  document.getElementById('modal-original').textContent='₹'+currentProduct.original.toLocaleString();
+  document.getElementById('modal-desc').textContent=currentProduct.desc;
+  document.getElementById('modal-reviews').textContent=`(${currentProduct.reviews} reviews)`;
+  document.getElementById('modal-qty').textContent='1';
+  document.getElementById('modal-product-img').src=currentProduct.img;
+  document.getElementById('modal-product-img').alt=currentProduct.name;
+  document.getElementById('modal-stars').innerHTML=Array(5).fill(0).map((_,i)=>`<span style="color:${i<Math.floor(currentProduct.rating)?'var(--c1)':'rgba(255,105,180,.2)'}">★</span>`).join('');
+  document.getElementById('product-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('product-modal').classList.remove('open');document.body.style.overflow=''}
+function changeQty(d){modalQty=Math.max(1,Math.min(10,modalQty+d));document.getElementById('modal-qty').textContent=modalQty}
+function addToCartFromModal(){if(!currentProduct)return;addToCartItem(currentProduct,modalQty);closeModal()}
+function wishlistModal(){if(currentProduct)toggleWishlist(currentProduct.id,null)}
+
+// ===================== CART =====================
+function addToCart(id){addToCartItem(products.find(p=>p.id===id),1)}
+
+function addToCartItem(product,qty){
+  const ex=cart.find(c=>c.id===product.id);
+  if(ex) ex.qty+=qty; else cart.push({...product,qty});
+  // Cart bounce animation
+  const btn=document.getElementById('cart-nav-btn');
+  btn.classList.add('cart-bounce');
+  setTimeout(()=>btn.classList.remove('cart-bounce'),600);
+  updateCartUI();
+  showToast(`${product.name} added to bag 💗`);
+  openCart();
+}
+
+function updateCartUI(){
+  const count=cart.reduce((s,c)=>s+c.qty,0);
+  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const cc=document.getElementById('cart-count');
+  cc.style.display=count>0?'flex':'none';cc.textContent=count;
+  document.getElementById('cart-total').textContent='₹'+total.toLocaleString();
+  const list=document.getElementById('cart-list');
+  const empty=document.getElementById('cart-empty');
+  if(!cart.length){empty.style.display='flex';list.innerHTML='';return}
+  empty.style.display='none';
+  list.innerHTML=cart.map(item=>`
+    <div style="display:flex;gap:12px;margin-bottom:18px;padding-bottom:18px;border-bottom:1.5px solid rgba(255,180,217,.2)">
+      <div style="width:64px;height:64px;border-radius:12px;overflow:hidden;flex-shrink:0;border:1.5px solid rgba(255,180,217,.3)"><img src="${item.img}" style="width:100%;height:100%;object-fit:cover"></div>
+      <div style="flex:1">
+        <div style="font-family:'Playfair Display',serif;font-size:.88rem;color:var(--text-dark);margin-bottom:3px">${item.name}</div>
+        <div style="font-family:'Quicksand';font-size:.75rem;font-weight:700;color:var(--c1)">₹${item.price.toLocaleString()} × ${item.qty}</div>
+      </div>
+      <button onclick="removeFromCart(${item.id})" style="background:var(--powder);border:none;cursor:none;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCartUI()}
+function openCart(){document.getElementById('cart-sidebar').classList.add('open');document.getElementById('cart-overlay').style.display='block';document.body.style.overflow='hidden'}
+function closeCart(){document.getElementById('cart-sidebar').classList.remove('open');document.getElementById('cart-overlay').style.display='none';document.body.style.overflow=''}
+function checkout(){if(!cart.length){showToast('Your bag is empty! 🛍️');return}showToast('Redirecting to secure checkout ✨');closeCart()}
+
+// ===================== WISHLIST =====================
+function toggleWishlist(id,btn){
+  const idx=wishlist.indexOf(id);
+  const p=products.find(x=>x.id===id);
+  if(idx>-1){wishlist.splice(idx,1);showToast('Removed from wishlist')}
+  else{wishlist.push(id);showToast(`${p.name} saved to wishlist 💗`)}
+  if(btn){
+    btn.classList.toggle('active',wishlist.includes(id));
+    const svg=btn.querySelector('svg');
+    if(svg) svg.setAttribute('fill',wishlist.includes(id)?'var(--c1)':'none');
+  }
+}
+
+// ===================== TESTIMONIALS =====================
+function renderTestimonials(){
+  document.getElementById('testimonials-grid').innerHTML=testimonials.map(t=>`
+    <div class="tcard reveal">
+      <div style="display:flex;gap:2px;margin-bottom:14px;font-size:.95rem">${Array(t.stars).fill('<span style="color:var(--c1)">★</span>').join('')}</div>
+      <p style="font-family:'Quicksand';font-size:.88rem;font-weight:500;color:var(--text-mid);line-height:1.8;margin-bottom:20px">"${t.text}"</p>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="avatar">${t.avatar}</div>
+          <div><div style="font-family:'Quicksand';font-weight:700;font-size:.85rem;color:var(--text-dark)">${t.name}</div><div style="font-family:'Quicksand';font-size:.72rem;color:var(--text-soft);font-weight:500">${t.loc}</div></div>
+        </div>
+        <div style="font-family:'Quicksand';font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c1)">${t.item}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===================== AI STYLIST =====================
+const replies={
+  wedding:['For your wedding look, I am OBSESSED with **Pearl Cascade Necklace** + **Crystal Bloom Hairpin**! Add delicate pearl studs for a complete bridal dream. 💒✨','Bridal queen energy! Go for **Rose Gold Ring** + **Pearl Necklace**. The Crystal Hairpin in your updo = absolute perfection! 👑💗'],
+  office:['Office chic? **Infinity Diamond Ring** is a power move 💼 Layer with **Layered Chain Necklace** for polished sophistication. ✨','Work look done right: simple **Crystal Hoops** + **Woven Gold Bracelet**. Minimal, luxe, girlboss energy! 💕'],
+  date:['Date night = DRAMA! **Moonstone Drop Earrings** are giving romantic mystery 🌙 Skip the necklace — let those earrings do the talking! 💫','For a romantic evening: sparkly hoops + a delicate bracelet stack. Keep it effortless but make every piece glow! ✨🌹'],
+  everyday:['Everyday cute: **Celestial Rose Ring** stack is everything 💕 Add tiny gold studs and a dainty bracelet. Effortlessly gorgeous! 🌸','Daily SNEVAM formula: ring stack + simple hoops + one thin chain. Put-together without even trying! 💫'],
+  default:['Omg that sounds so cute! 🌸 I\'d suggest **Pearl Cascade Necklace** + **Moonstone Earrings** — they\'ll absolutely complete your look! ✨','Love that vibe! Try **Celestial Rose Ring** + **Layered Chain Necklace**. For hair, **Crystal Bloom Hairpin** is chef\'s kiss! 💗']
+};
+
+function sendStylistMsg(){
+  const input=document.getElementById('stylist-input');
+  const msg=input.value.trim();if(!msg) return;
+  appendChat(msg,'user');input.value='';
+  setTimeout(()=>{
+    const l=msg.toLowerCase();
+    let r;
+    if(l.includes('wedding')||l.includes('bridal')) r=replies.wedding[Math.floor(Math.random()*2)];
+    else if(l.includes('office')||l.includes('work')) r=replies.office[Math.floor(Math.random()*2)];
+    else if(l.includes('date')||l.includes('romantic')) r=replies.date[Math.floor(Math.random()*2)];
+    else if(l.includes('everyday')||l.includes('casual')||l.includes('minimal')) r=replies.everyday[Math.floor(Math.random()*2)];
+    else r=replies.default[Math.floor(Math.random()*2)];
+    appendChat(r,'ai');
+  },700);
+}
+function quickStylist(p){document.getElementById('stylist-input').value=p;sendStylistMsg()}
+function appendChat(msg,role){
+  const c=document.getElementById('chat-messages');
+  const d=document.createElement('div');
+  if(role==='user'){
+    d.style.cssText='align-self:flex-end;background:linear-gradient(135deg,var(--c1),var(--c2));border-radius:18px 4px 18px 18px;padding:10px 14px;max-width:85%';
+    d.innerHTML=`<div style="font-family:'Quicksand';font-size:.82rem;font-weight:600;color:white;line-height:1.5">${msg}</div>`;
+  }else{
+    d.style.cssText='align-self:flex-start;background:var(--powder);border-radius:4px 18px 18px 18px;padding:12px 14px;max-width:92%';
+    d.innerHTML=`<div style="font-family:'Quicksand';font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1);margin-bottom:5px">Snevam AI 💕</div><div style="font-family:'Quicksand';font-size:.82rem;font-weight:500;color:var(--text-dark);line-height:1.6">${msg.replace(/\*\*(.*?)\*\*/g,'<strong style="color:var(--c1)">$1</strong>')}</div>`;
+  }
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+
+// ===================== 3D SHOWROOM =====================
+function initShowroomCanvas(){
+  const canvas=document.getElementById('showroom-canvas');
+  if(!canvas||typeof THREE==='undefined') return;
+  const W=canvas.offsetWidth||500,H=canvas.offsetHeight||400;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setClearColor(0xFFF0FA,1);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(50,W/H,.1,100);
+  camera.position.set(0,0,7);
+  scene.add(new THREE.AmbientLight(0xFFB3D9,.7));
+  const l1=new THREE.PointLight(0xFF1F8E,2.5,20);l1.position.set(3,3,3);scene.add(l1);
+  const l2=new THREE.PointLight(0xE040FB,1.8,20);l2.position.set(-3,-2,2);scene.add(l2);
+  scene.add(Object.assign(new THREE.DirectionalLight(0xFFE4F3,1.2),{position:{set:(x,y,z)=>{}}}).clone());
+  const colors=[0xFF69B4,0xFF1F8E,0xE040FB,0xFFB3D9,0xB8E4FF,0xE8B4FF,0xFFF4B8];
+  const shapes=[
+    ()=>new THREE.TorusGeometry(.5+Math.random()*.3,.09+Math.random()*.05,32,80),
+    ()=>new THREE.TorusKnotGeometry(.3+Math.random()*.2,.08,80,16),
+    ()=>new THREE.OctahedronGeometry(.3+Math.random()*.2,2),
+    ()=>new THREE.IcosahedronGeometry(.25+Math.random()*.15,1),
+    ()=>new THREE.TetrahedronGeometry(.3+Math.random()*.2),
+  ];
+  const objs=[],group=new THREE.Group();
+  for(let i=0;i<16;i++){
+    const geo=shapes[Math.floor(Math.random()*shapes.length)]();
+    const mat=new THREE.MeshStandardMaterial({color:colors[Math.floor(Math.random()*colors.length)],metalness:.8+Math.random()*.15,roughness:.05+Math.random()*.1});
+    const mesh=new THREE.Mesh(geo,mat);
+    mesh.position.set((Math.random()-.5)*12,(Math.random()-.5)*7,(Math.random()-.5)*3);
+    mesh.rotation.set(Math.random()*Math.PI*2,Math.random()*Math.PI*2,Math.random()*Math.PI*2);
+    const spd={rx:(Math.random()-.5)*.009,ry:(Math.random()-.5)*.013,fPhase:Math.random()*Math.PI*2,fSpeed:.003+Math.random()*.004};
+    objs.push({mesh,spd,oy:mesh.position.y});group.add(mesh);
+  }
+  scene.add(group);
+  let t=0,isDrag=false,px=0,py=0;
+  canvas.addEventListener('mousedown',e=>{isDrag=true;px=e.clientX;py=e.clientY});
+  window.addEventListener('mouseup',()=>isDrag=false);
+  canvas.addEventListener('mousemove',e=>{if(!isDrag)return;group.rotation.y+=(e.clientX-px)*.008;group.rotation.x+=(e.clientY-py)*.006;px=e.clientX;py=e.clientY});
+  function loop(){
+    requestAnimationFrame(loop);t+=.008;
+    objs.forEach(o=>{o.mesh.rotation.x+=o.spd.rx;o.mesh.rotation.y+=o.spd.ry;o.spd.fPhase+=o.spd.fSpeed;o.mesh.position.y=o.oy+Math.sin(o.spd.fPhase)*.35});
+    l1.position.x=Math.sin(t*.5)*5;l1.position.y=Math.cos(t*.3)*3;
+    renderer.render(scene,camera);
+  }
+  loop();
+  window.addEventListener('resize',()=>{const W2=canvas.offsetWidth,H2=canvas.offsetHeight;renderer.setSize(W2,H2);camera.aspect=W2/H2;camera.updateProjectionMatrix()});
+}
+
+// ===================== MISC =====================
+function showToast(msg){
+  document.getElementById('toast-msg').textContent=msg;
+  document.getElementById('toast').classList.add('show');
+  setTimeout(()=>document.getElementById('toast').classList.remove('show'),3000);
+}
+function scrollToSection(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function openSearch(){document.getElementById('search-overlay').classList.add('open');setTimeout(()=>document.getElementById('search-input').focus(),300)}
+function closeSearch(){document.getElementById('search-overlay').classList.remove('open')}
+function toggleMobileMenu(){const m=document.getElementById('mobile-menu');const isOpen=m.style.display==='flex';m.style.display=isOpen?'none':'flex';document.getElementById('menu-toggle-btn').classList.toggle('menu-open',!isOpen)}
+function openAccountModal(){document.getElementById('account-modal').style.display='flex';document.body.style.overflow='hidden'}
+function closeAccountModal(){document.getElementById('account-modal').style.display='none';document.body.style.overflow=''}
+function handleSignIn(){showToast('Account system launching soon! 💗');closeAccountModal()}
+function handleGoogleAuth(){showToast('Google Sign-In coming soon! ✨');closeAccountModal()}
+function subscribeNewsletter(){showToast('You\'re in the SNEVAM circle now! 💌✨')}
+
+document.getElementById('search-input').addEventListener('input',function(){
+  const q=this.value.toLowerCase();
+  const res=document.getElementById('search-results');
+  if(!q){res.innerHTML='';return}
+  const m=products.filter(p=>p.name.toLowerCase().includes(q)||p.category.includes(q));
+  res.innerHTML=m.length?m.map(p=>`<div onclick="closeSearch();openProduct(${p.id})" style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,180,217,.2);cursor:none"><img src="${p.img}" style="width:40px;height:40px;border-radius:10px;object-fit:cover"><div><div style="font-family:'Quicksand';font-weight:700;font-size:.85rem;color:var(--text-dark)">${p.name}</div><div style="font-family:'Quicksand';font-size:.72rem;font-weight:600;color:var(--c1)">₹${p.price.toLocaleString()}</div></div></div>`).join(''):'<div style="font-family:Quicksand;font-size:.82rem;color:var(--text-soft);padding:8px 0">No results found 🌸</div>';
+});
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSearch();closeModal();closeAccountModal();closeCart();if(themePanelOpen)toggleThemePanel()}});
+</script>
+</body>
+</html>
